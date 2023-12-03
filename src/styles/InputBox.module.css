@@ -1,0 +1,35 @@
+.filter_input_small {
+    width: 110px;
+    border: 3px solid black;
+    border-radius: 10px;
+    margin:2px;
+    padding: 2px;
+  }
+  
+  .filter_input_small > input{
+    width: 100px;
+  }
+  
+  .filter_input_medium {
+    width: 240px;
+    border: 3px solid black;
+    border-radius: 10px;
+    margin:2px;
+    padding: 2px;
+  }
+  
+  .filter_input_medium > input{
+    width: 230px;
+  }
+  
+  .filter_input_large {
+    width: 380px;
+    border: 3px solid black;
+    border-radius: 10px;
+    margin:2px;
+    padding: 2px;
+  }
+  
+  .filter_input_large > input{
+    width: 370px;
+  }
