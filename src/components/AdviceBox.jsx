@@ -2,8 +2,6 @@ import style from "../styles/AdviceList.module.css"
 
 const AdviceBox = () => {
 
-
-
     return (
       <div >
         <h3>Advices</h3>
