@@ -8,18 +8,18 @@ function App() {
   
 
   return (
-    <div className={style.general_view}>
-      <div className={style.header}>
-        <h2>Flight Advice System</h2>
+    <div className="font-sans">
+      <div className="w-full text-center p-3 bg-slate-600 text-white">
+        <h2 className="text-2xl font-bold pt-1">Flight Advice System</h2>
       </div>
-      <div className={style.filter_box}>
+      <div className="w-full border border-black">
         <Form />
-      </div>
-      <div className={style.advice_box}>
-        <AdviceBox />
       </div>
       <div className={style.map_box}>
         <MapBox />
+      </div>
+      <div className={style.advice_box}>
+        <AdviceBox />
       </div>
     </div>
   );
