@@ -5,7 +5,7 @@ import { AdviceBox } from "./AdviceBox";
 import style from "../styles/App.module.css";
 
 function App() {
-  
+
 
   return (
     <div className="font-sans">
@@ -15,14 +15,17 @@ function App() {
       <div className="w-full border border-black">
         <Form />
       </div>
-      <div className={style.map_box}>
-        <MapBox />
+      <div className="flex">
+        <div className="w-3/5 m-2">
+          <MapBox />
+        </div>
+        <div className="w-2/5 m-2 border border-black">
+          <AdviceBox />
+        </div>
       </div>
-      <div className={style.advice_box}>
-        <AdviceBox />
-      </div>
+
     </div>
   );
 }
 
-export {App};
+export { App };

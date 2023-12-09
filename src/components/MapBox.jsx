@@ -37,7 +37,7 @@ const MapBox = () => {
   const displayMap = useMemo(
     () => (
       <MapContainer
-        id="map" className='h-[40rem] w-5/6 border border-slate-400 rounded z-0'
+        id="map" className='h-[40rem] w-full border border-slate-400 rounded z-0'
         center={[49.84032239009007, 24.01840394328422]}
         zoom={10}
         scrollWheelZoom={true}
