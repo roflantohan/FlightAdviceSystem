@@ -104,7 +104,7 @@ const Form = () => {
                 render={({ field }) => (
                   <Select
                     className="w-32"
-                    options={createSelectOptions(AIR_DATA.TypeOfFlight)}
+                    options={(AIR_DATA.TypeOfACOptions)}
                     placeholder=""
                     {...field}
                   />
@@ -189,7 +189,7 @@ const Form = () => {
                 render={({ field }) => (
                   <Select
                     className="w-32"
-                    options={createSelectOptions(AIR_DATA.WakeTurbulenceCat)}
+                    options={createSelectOptions(AIR_DATA.Aerodroms)}
                     placeholder=""
                     {...field}
                   />
@@ -205,19 +205,11 @@ const Form = () => {
             <div className="w-fit mr-2">
               <label className="text-xs">Date flight</label>
               <br />
-              <Controller
-                name="dateFlight"
-                control={control}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <DatePicker
+              <DatePicker
                     className="w-32 h-9 border border-gray-300 rounded text-center"
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
                     dateFormat="dd.MM.yyyy"
-                    {...field}
-                  />
-                )}
               />
               <br />
               {errors.dateFlight && (
@@ -232,12 +224,7 @@ const Form = () => {
             <div className="w-fit mr-2">
               <label className="text-xs">Time flight</label>
               <br />
-              <Controller
-                name="timeFlight"
-                control={control}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <DatePicker
+              <DatePicker
                     className="w-32 h-9 border border-gray-300 rounded text-center"
                     showTimeSelect
                     showTimeSelectOnly
@@ -246,10 +233,7 @@ const Form = () => {
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
                     dateFormat="hh:mm:aa"
-                    {...field}
                   />
-                )}
-              />
               <br />
               {errors.timeFlight && (
                 <span className="text-xs text-red-500 font-bold">
@@ -299,12 +283,7 @@ const Form = () => {
             <div className="w-fit mr-2">
               <label className="text-xs">Total eet</label>
               <br />
-              <Controller
-                name="totalEet"
-                control={control}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <DatePicker
+              <DatePicker
                     className="w-32 h-9 border border-gray-300 rounded text-center"
                     showTimeSelect
                     showTimeSelectOnly
@@ -313,10 +292,7 @@ const Form = () => {
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
                     dateFormat="hh:mm"
-                    {...field}
                   />
-                )}
-              />
               <br />
               {errors.totalEet && (
                 <span className="text-xs text-red-500 font-bold">
@@ -337,7 +313,7 @@ const Form = () => {
                 render={({ field }) => (
                   <Select
                     className="w-32"
-                    options={createSelectOptions(AIR_DATA.WakeTurbulenceCat)}
+                    options={createSelectOptions(AIR_DATA.Aerodroms)}
                     placeholder=""
                     {...field}
                   />
@@ -359,7 +335,7 @@ const Form = () => {
                 render={({ field }) => (
                   <Select
                     className="w-32"
-                    options={createSelectOptions(AIR_DATA.WakeTurbulenceCat)}
+                    options={createSelectOptions(AIR_DATA.Aerodroms)}
                     placeholder=""
                     {...field}
                   />
@@ -381,7 +357,7 @@ const Form = () => {
                 render={({ field }) => (
                   <Select
                     className="w-32"
-                    options={createSelectOptions(AIR_DATA.WakeTurbulenceCat)}
+                    options={createSelectOptions(AIR_DATA.Aerodroms)}
                     placeholder=""
                     {...field}
                   />
@@ -415,9 +391,6 @@ const Form = () => {
             </div>
           </div>
 
-
-
-
           <div className="flex m-2">
             <div className="w-fit mr-2">
               <label className="text-xs">Routes</label>
@@ -442,22 +415,13 @@ const Form = () => {
               )}
             </div>
 
-
           </div>
-
-
 
         </div>
 
         <div className="flex m-2">
 
           <div className="flex float-right m-2 mr-3">
-            <button
-              className="w-10 border border-gray-300 rounded p-1 mr-2 bg-slate-50"
-              type="submit"
-            >
-              Add
-            </button>
             <button className="border border-gray-300 rounded p-1 bg-slate-50" type="submit">
               Check
             </button>
