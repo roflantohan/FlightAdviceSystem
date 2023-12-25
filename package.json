@@ -11,19 +11,30 @@
   },
   "dependencies": {
     "leaflet": "^1.9.4",
+    "leaflet-arrowheads": "^1.4.0",
+    "moment": "^2.29.4",
+    "node": "^20.7.0",
     "react": "^18.2.0",
+    "react-datepicker": "^4.24.0",
+    "react-datetime-picker": "^5.5.3",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
-    "react-leaflet": "^4.2.1"
+    "react-leaflet": "^4.2.1",
+    "react-select": "^5.8.0",
+    "react-time-picker": "^6.5.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@vitejs/plugin-react": "^4.2.0",
+    "autoprefixer": "^10.4.16",
     "eslint": "^8.53.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.4",
+    "postcss": "^8.4.32",
+    "sass": "^1.69.5",
+    "tailwindcss": "^3.3.5",
     "vite": "^5.0.0"
   }
 }

@@ -1,56 +1,45 @@
-import style from "../styles/App.module.css";
-
-import { useForm } from "react-hook-form"
-
+import { Form } from "./Form";
 import { MapBox } from "./MapBox";
 import { AdviceBox } from "./AdviceBox";
-import { InputBox } from "./InputBox";
+import { useEffect, useState } from "react";
+import AIR_DATA from "../libs/constants"
+import {searchConfilct} from "../libs"
+
 
 function App() {
+  const [adviceFlag, setAdviceFlag] = useState(null);
+  const [conflicts, setConflicts] = useState([]);
+  const [myFlightPlan, setMyFlightPlan] = useState(null);
+
+  useEffect(() => {
+    if(myFlightPlan && myFlightPlan.R.length > 1){
+      const dots = searchConfilct(AIR_DATA.OTHERS_FP, myFlightPlan)
+      setConflicts(dots);
+      if(dots.length) setAdviceFlag(false)
+      else setAdviceFlag(true)
+    }
+    
+  }, [myFlightPlan])
 
   return (
-    <div className={style.general_view}>
-      <div className={style.header}>
-        <h2>Flight Advice System</h2>
+    <div className="font-sans">
+      <div className="w-full text-center p-3 bg-slate-600 text-white">
+        <h2 className="text-2xl font-bold pt-1">Flight Advice System</h2>
       </div>
-
-      <div className={style.filter_box}>
-        <h3>Filters</h3>
-        <div className={style.filter_container}>
-
-          <form>
-            <div className={style.filter_row}>
-              <InputBox 
-                title={"Aircraft indetification"}
-                size="small" 
-              />
-            </div>
-
-            <div className={style.filter_row}>
-            </div>
-
-            <div className={style.filter_row}>
-            </div>
-
-            <div className={style.filter_row}>
-            </div>
-
-            <div className={style.filter_row}>
-            </div>
-
-            <input type="submit" />
-          </form>
-
+      <div className="w-full border border-black">
+        <Form handleFP={(fp) => {setMyFlightPlan(fp)}}/>
+      </div>
+      <div className="flex">
+        <div className="w-3/5 m-2">
+          <MapBox myFP={myFlightPlan} conflicts={conflicts} />
+        </div>
+        <div className="w-2/5 m-2 border border-black">
+          <AdviceBox flag={adviceFlag} />
         </div>
       </div>
-      <div className={style.advice_box}>
-        <AdviceBox />
-      </div>
-      <div className={style.map_box}>
-        <MapBox />
-      </div>
+
     </div>
   );
 }
 
-export {App};
+export { App };
