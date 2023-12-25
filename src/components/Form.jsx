@@ -1,31 +1,68 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import AIR_DATA from "../libs/constants.js"
 import { createSelectOptions } from "../libs/index.js";
 
-import "react-datepicker/dist/react-datepicker.css";
-
-const Form = () => {
+const Form = ({handleFP}) => {
   const {
     register,
     handleSubmit,
-    watch,
     control,
-    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {},
   });
 
-  const [startDate, setStartDate] = useState(new Date());
+  /*
+    aircraftIndetification
+    flightRules
+    typeOfFlight
+    typeOfAircraft
+    equipment1
+    equipment2
+    wakeTurbulenceCat
+    cruisingSpeed
+    level
+    destinationAerodrom
+    altnAerodrom
+    secAltnAerodrom
+    endurance
+    routes
+  */
 
-  const onSubmit = (data) => console.log(data);
+  const [startDate, setstartDate] = useState(new Date());
+  const [startTime, setstartTime] = useState(new Date());
+  const [totalEET, settotalEET] = useState(new Date());
 
-  console.log(watch("routes")); // watch input value by passing the name of it
+  const onSubmit = (data) => {
+    const fp = {}
+
+    fp.AI = data.aircraftIndetification;
+    fp.FR = data.flightRules.value;
+    fp.TF = data.typeOfFlight.value;
+    fp.TA = data.typeOfAircraft.value;
+    fp.EQ1 = data.equipment1.value;
+    fp.EQ2 = data.equipment2.value;
+    fp.WTC = data.wakeTurbulenceCat.value;
+    fp.CS = Number(data.cruisingSpeed);
+    fp.LVL = Number(data.level);
+    fp.DESA = data.destinationAerodrom.value;
+    fp.DEPA = data.departureAerodrom.value;
+    fp.ALTA = data.altnAerodrom.value;
+    fp.SALTA = data.secAltnAerodrom.value;
+    fp.E = data.endurance;
+    fp.R = data.routes.map(route => route.value)
+    fp.SD = startDate;
+    fp.ST = startTime;
+    fp.EET = totalEET;
+
+    handleFP(fp)
+  }
 
   return (
     <div>
@@ -104,7 +141,7 @@ const Form = () => {
                 render={({ field }) => (
                   <Select
                     className="w-32"
-                    options={(AIR_DATA.TypeOfACOptions)}
+                    options={createSelectOptions(AIR_DATA.TypeOfAircraft)}
                     placeholder=""
                     {...field}
                   />
@@ -208,7 +245,7 @@ const Form = () => {
               <DatePicker
                     className="w-32 h-9 border border-gray-300 rounded text-center"
                     selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    onChange={(date) => setstartDate(date)}
                     dateFormat="dd.MM.yyyy"
               />
               <br />
@@ -230,8 +267,8 @@ const Form = () => {
                     showTimeSelectOnly
                     timeIntervals={15}
                     timeCaption="Time"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    selected={startTime}
+                    onChange={(date) => setstartTime(date)}
                     dateFormat="hh:mm:aa"
                   />
               <br />
@@ -289,12 +326,12 @@ const Form = () => {
                     showTimeSelectOnly
                     timeIntervals={15}
                     timeCaption="Time"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    selected={totalEET}
+                    onChange={(date) => settotalEET(date)}
                     dateFormat="hh:mm"
                   />
               <br />
-              {errors.totalEet && (
+              {errors.totalEET && (
                 <span className="text-xs text-red-500 font-bold">
                   This field is required
                 </span>
@@ -397,13 +434,15 @@ const Form = () => {
               <br />
               <Controller
                 name="routes"
+                className="z-0"
                 control={control}
                 rules={{ required: true }}
                 render={({ field }) => (
                   <CreatableSelect
-                    className="w-72 z-10"
+                    className="w-72"
                     isClearable
                     isMulti
+                    options={createSelectOptions(AIR_DATA.POINTS)}
                     {...field}
                   />
                 )}
@@ -424,6 +463,11 @@ const Form = () => {
           <div className="flex float-right m-2 mr-3">
             <button className="border border-gray-300 rounded p-1 bg-slate-50" type="submit">
               Check
+            </button>
+          </div>
+          <div className="flex float-right m-2 mr-3">
+            <button className="border border-gray-300 rounded p-1 bg-slate-50" type="reset">
+              Reset
             </button>
           </div>
 
