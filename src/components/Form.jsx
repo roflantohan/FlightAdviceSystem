@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
@@ -17,23 +17,6 @@ const Form = ({handleFP}) => {
   } = useForm({
     defaultValues: {},
   });
-
-  /*
-    aircraftIndetification
-    flightRules
-    typeOfFlight
-    typeOfAircraft
-    equipment1
-    equipment2
-    wakeTurbulenceCat
-    cruisingSpeed
-    level
-    destinationAerodrom
-    altnAerodrom
-    secAltnAerodrom
-    endurance
-    routes
-  */
 
   const [startDate, setstartDate] = useState(new Date());
   const [startTime, setstartTime] = useState(new Date());

@@ -7,31 +7,7 @@ const createSelectOptions = (arrOptions) => {
     })
 }
 
-const radToDegree = (rad) => (rad * 180) / Math.PI
 const degreeToRad = (degree) => (degree * Math.PI) / 180;
-const nodeToSpeed = (node) => node * 0.514444;
-const ftToKm = (ft) => ft/3280.84;
-
-const getAzimut = (vector) => {
-    const dx = vector.xy1.latitude - vector.xy2.latitude;
-    const dy = vector.xy1.longitude - vector.xy2.longitude;
-    const dist = Math.sqrt((dx*dx)+(dy*dy));
-    const dxa = Math.abs(dx);
-    const beta = radToDegree(Math.cos((dxa/dist)));
-    if(dx > 0){
-        if(dy < 0){
-            return 270 + beta;
-        }else{
-            return 270 - beta;
-        }
-    }else{
-        if(dy < 0){
-            return 90 - beta;
-        }else{
-            return 90 + beta;
-        }
-    }
-}
 
 const getTimeByFuncLat = (vector) => {
     return (vector.xy2.latitude - vector.xy1.latitude)/latSpeed(vector) + vector.t1;
@@ -41,20 +17,8 @@ const getTimeInPoint = (vector, point) => {
     return (point.latitude - vector.xy1.latitude)/latSpeed(vector) + vector.t1;
 }
 
-const funcLat = (vector, t) => {
-    return vector.xy1.latitude + t * latSpeed(vector)
-}
-
-const funcLon = (vector, t) => {
-    return vector.xy1.longitude + t * lonSpeed(vector)
-}
-
 const latSpeed = vector => {
     return vector.speed/111132.954;
-}
-
-const lonSpeed = vector => {
-    return vector.speed/(111132.954*Math.cos(degreeToRad(vector.xy1.latitude)))
 }
 
 const getDisntance = vector => {
@@ -66,8 +30,6 @@ const getAbsoluteDatetime = (vector, t) => {
     fullDate.add(t, 'seconds')
     return fullDate;
 }
-
-
 
 const createVectors = (fp) => {
     const vectors = []
@@ -91,8 +53,6 @@ const createVectors = (fp) => {
 
         const t2 = getTimeByFuncLat(vector, t1)
         vector.t2 = t2;
-        const azimut = getAzimut(vector)
-        vector.azimut = azimut;
         const distance = getDisntance(vector);
         vector.distance = distance;
 
@@ -106,13 +66,9 @@ const createVectors = (fp) => {
 
 const firstConditionConflict = (otherV, myV) => {
     if(otherV.A === myV.A) return myV.A;
-
     if(otherV.A === myV.B) return myV.B;
-
     if(otherV.B === myV.A) return myV.A;
-
     if(otherV.B === myV.B) return myV.B;
-
     return false;
 }
 
@@ -189,9 +145,7 @@ const getPointConflict = (otherV, myV) => {
         n = fn / sn;
     }
     else{
-        if(!(y3-y4)){
-            return null
-        }
+        if(!(y3-y4)) return null
         n = (y3-y1) / (y3-y4)
     }
 
@@ -208,29 +162,24 @@ const searchConfilct = (othersFP, myFP) => {
             for(let h = 0; h < myRoute.length; h++){
                 const oneFlag = firstConditionConflict(otherRoute[j], myRoute[h])
                 if(oneFlag !== false){
-
-                    let time1;
-                    let time2;
-                    if(otherRoute[j].A === oneFlag){
+                    let time1, time2;
+                    if(otherRoute[j].A === oneFlag)
                         time1 = getAbsoluteDatetime(otherRoute[j], otherRoute[j].t1);
-                    }else{
+                    else
                         time1 = getAbsoluteDatetime(otherRoute[j], otherRoute[j].t2);
-                    }
-
-                    if(myRoute[h].A === oneFlag){
+                    
+                    if(myRoute[h].A === oneFlag)
                         time2 = getAbsoluteDatetime(myRoute[h], myRoute[h].t1);
-                    }else{
+                    else
                         time2 = getAbsoluteDatetime(myRoute[h], myRoute[h].t2);
-                    }
 
                     const timeDiff = time1 > time2 ? time1 - time2 : time2 - time1
                     if(timeDiff <= AIR_DATA.MIN_TIMEOUT){
                         if(Math.abs(otherRoute[j].high - myRoute[h].high) <= 10){
-                            if(myRoute[h].A === oneFlag){
+                            if(myRoute[h].A === oneFlag)
                                 conflicts.push(myRoute[h].xy1)
-                            }else{
+                            else
                                 conflicts.push(myRoute[h].xy2)
-                            }
 
                             return conflicts
                         }
@@ -246,7 +195,6 @@ const searchConfilct = (othersFP, myFP) => {
                         const time2 = getAbsoluteDatetime(myRoute[h], timeAlt2);
 
                         const timeDiff = time1 > time2 ? time1 - time2 : time2 - time1
-
                         if(timeDiff <= AIR_DATA.MIN_TIMEOUT){
                             if(Math.abs(otherRoute[j].high - myRoute[h].high) <= 10){
                                 conflicts.push(dot)

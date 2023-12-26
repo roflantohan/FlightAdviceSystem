@@ -1,7 +1,7 @@
 
 
-import React, { createRef, useCallback, useEffect, useMemo, useState } from 'react'
-import { CircleMarker, MapContainer, Marker, Polyline, Popup, TileLayer, useMap, LayerGroup, Tooltip, SVGOverlay, GeoJSON } from 'react-leaflet'
+import { useEffect, useState } from 'react'
+import { CircleMarker, MapContainer, TileLayer, useMap, LayerGroup, Tooltip, GeoJSON } from 'react-leaflet'
 import 'leaflet-arrowheads'
 import AIR_DATA from "../libs/constants.js"
 
@@ -23,11 +23,8 @@ const ControlLayerMap = ({offHandle}) => {
 
 const MapBox = ({ myFP, conflicts }) => {
   const [routes, setRoutes] = useState([])
-
   const [clearMapFlag, setClearMapFlag] = useState(false)
-
   const clearMapHandle = () => setClearMapFlag(true)
-
   const yellowOptions = { color: 'yellow' }
 
   useEffect(() => {
@@ -91,7 +88,6 @@ const MapBox = ({ myFP, conflicts }) => {
       ]
     }
 
-
     for (let i = 0; i < route.length - 1; i++) {
       multiLine.push([
         [AIR_DATA.COORDINATES_POINTS[route[i]].latitude, AIR_DATA.COORDINATES_POINTS[route[i]].longitude],
@@ -149,7 +145,6 @@ const MapBox = ({ myFP, conflicts }) => {
       {conflicts.length && !clearMapFlag ? conflicts.map(conflict => drawConflictDot(conflict)) : null}
     </MapContainer>
   )
-
 }
 
 export { MapBox }

@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import AIR_DATA from "../libs/constants"
 import {searchConfilct} from "../libs"
 
-
 function App() {
   const [adviceFlag, setAdviceFlag] = useState(null);
   const [conflicts, setConflicts] = useState([]);
