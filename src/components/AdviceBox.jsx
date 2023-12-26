@@ -35,20 +35,6 @@ const AdviceBox = ({flag, data}) => {
       )
     }
 
-    /**
-     * ALARM!
-        The proposed flight plan may lead to a conflict situation on a certain
-        part of the route!!!
-        Conflicting flight - UR-16382
-        Estimated time of potential conflict - 9:39 AM
-        Reason - non-compliance with the minimum horizontal separation in
-        this zone (5 nautical miles)
-        Recommendation:
-        
-        Increase altitude at NDB/IVF to FL420
-        Reduce speed at NDB/IVF to 410NM
-     */
-
     return flag !== null ? (flag ? successMsg() : failMsg()) : null;
 }
 
